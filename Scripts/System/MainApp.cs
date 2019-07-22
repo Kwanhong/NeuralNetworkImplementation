@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace neuralnetworkImplementation
+namespace NeuralNetwork
 {
     static class MainApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Game game = new Game();
         }
     }
 }
