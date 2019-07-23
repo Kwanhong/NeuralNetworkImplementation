@@ -2,13 +2,15 @@ using System;
 using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
-using static NeuralNetworkSystem.Consts;
-using static NeuralNetworkSystem.Data;
+using static NeuralNetworkImplementation.Consts;
+using static NeuralNetworkImplementation.Data;
 
-namespace NeuralNetworkSystem
+namespace NeuralNetworkImplementation
 {
     class Game
     {
+        NeuralNetwork brain;
+
         public void Run()
         {
             while (window.IsOpen)
@@ -23,8 +25,15 @@ namespace NeuralNetworkSystem
 
         public void Initialize()
         {
-            window.SetFramerateLimit(60);
+            window.SetFramerateLimit(winFrameLimit);
 
+            var a = new Matrix(2, 3);
+            var b = new Matrix(3, 2);
+            a.Add(2);
+            b.Add(3);
+            var c = a.Multiply(b);
+
+            brain = new NeuralNetwork(3, 3, 1);
         }
 
         private void Update()
@@ -34,13 +43,14 @@ namespace NeuralNetworkSystem
 
         private void LateUpdate()
         {
+
         }
 
         private void Display()
         {
 
             window.Display();
-            window.Clear(new Color(36, 36, 36));
+            window.Clear(winBackColor);
         }
 
     }

@@ -1,7 +1,7 @@
 ﻿using System;
-using static NeuralNetworkSystem.Data;
+using static NeuralNetworkImplementation.Data;
 
-namespace NeuralNetworkSystem
+namespace NeuralNetworkImplementation
 {
     static class MainApp
     {

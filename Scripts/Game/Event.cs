@@ -2,9 +2,9 @@ using System;
 using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
-using static NeuralNetworkSystem.Data;
+using static NeuralNetworkImplementation.Data;
 
-namespace NeuralNetworkSystem
+namespace NeuralNetworkImplementation
 {
     class Event
     {

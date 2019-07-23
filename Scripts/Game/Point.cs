@@ -2,11 +2,11 @@ using System;
 using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
-using static NeuralNetworkSystem.Data;
-using static NeuralNetworkSystem.Consts;
-using static NeuralNetworkSystem.Utility;
+using static NeuralNetworkImplementation.Data;
+using static NeuralNetworkImplementation.Consts;
+using static NeuralNetworkImplementation.Utility;
 
-namespace NeuralNetworkSystem
+namespace NeuralNetworkImplementation
 {
     class Point
     {

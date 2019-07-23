@@ -1,9 +1,9 @@
 using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
-using static NeuralNetworkSystem.Consts;
+using static NeuralNetworkImplementation.Consts;
 
-namespace NeuralNetworkSystem
+namespace NeuralNetworkImplementation
 {
     static class Data
     {
