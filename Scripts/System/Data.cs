@@ -14,5 +14,7 @@ namespace NeuralNetwork
             winStyle,
             winSettings
         );
+        public static Event events = new Event();
+
     }
 }

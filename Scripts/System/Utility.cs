@@ -19,7 +19,7 @@ namespace NeuralNetwork
         {
             return 0.5f *
             (
-                (v1.X * v2.Y + v2.X * v3.Y + v3.X * v4.Y + v4.X + v1.Y) - 
+                (v1.X * v2.Y + v2.X * v3.Y + v3.X * v4.Y + v4.X + v1.Y) -
                 (v2.X * v1.Y + v3.X * v2.Y + v4.X * v3.Y + v1.X * v4.Y)
             );
         }
@@ -356,6 +356,29 @@ namespace NeuralNetwork
                 output[x] = noise / scaleAcc;
             }
             return output;
+        }
+        #endregion
+
+        #region RANDOM
+        public static float Random(float min, float max)
+        {
+            Random rnd = new Random(DateTime.Now.Millisecond);
+            return Map((float)rnd.NextDouble(), 0, 1, min, max);
+        }
+        public static float Random(float max)
+        {
+            Random rnd = new Random(DateTime.Now.Millisecond);
+            return Map((float)rnd.NextDouble(), 0, 1, 0, max);
+        }
+        public static float Random(float min, float max, int seed)
+        {
+            Random rnd = new Random(seed);
+            return Map((float)rnd.NextDouble(), 0, 1, min, max);
+        }
+        public static float Random(float max, int seed)
+        {
+            Random rnd = new Random(seed);
+            return Map((float)rnd.NextDouble(), 0, 1, 0, max);
         }
         #endregion
 

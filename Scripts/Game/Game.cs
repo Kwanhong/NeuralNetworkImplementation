@@ -8,26 +8,29 @@ namespace NeuralNetwork
 {
     class Game
     {
+        Perceptron p;
         public Game()
         {
             Initialize();
             Run();
         }
 
-        private void Initialize()
-        {
-            window.Closed += OnClosed;
-            window.KeyPressed += OnKeyPressed;
-        }
-
         private void Run()
         {
             while (window.IsOpen)
             {
-                HandleEvents();
+                events.HandleEvents();
                 Update();
                 Display();
             }
+        }
+
+        private void Initialize()
+        {
+            p = new Perceptron();
+            float[] inputs = { -1, 0.5f };
+            int guess = p.Guess(inputs);
+            Console.Write("Guess : " + guess + " ");
         }
 
         private void Update()
@@ -37,26 +40,11 @@ namespace NeuralNetwork
 
         private void Display()
         {
+
+
             window.Display();
             window.Clear(new Color(36, 36, 36));
         }
 
-        private void HandleEvents()
-        {
-            window.DispatchEvents();
-        }
-
-        private void OnClosed(object sender, EventArgs e)
-        {
-            window.Close();
-        }
-
-        private void OnKeyPressed(object sender, KeyEventArgs e)
-        {
-            if (e.Code == Keyboard.Key.Escape)
-            {
-                window.Close();
-            }
-        }
     }
 }
