@@ -14,8 +14,8 @@ namespace NeuralNetwork
             winStyle,
             winSettings
         );
-        public static Event events = new Event();
-        public static Game game = new Game();
+        public static Event events;
+        public static Game game;
 
     }
 }

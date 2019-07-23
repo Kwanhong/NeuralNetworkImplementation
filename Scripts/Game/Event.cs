@@ -8,11 +8,6 @@ namespace NeuralNetwork
 {
     class Event
     {
-        public Event()
-        {
-            Initialize();
-        }
-
         public void Initialize()
         {
             window.Closed += OnClosed;

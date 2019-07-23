@@ -7,6 +7,11 @@ namespace NeuralNetwork
     {
         static void Main(string[] args)
         {
+            events = new Event();
+            game = new Game();
+            events.Initialize();
+            game.Initialize();
+
             game.Run();
         }
     }

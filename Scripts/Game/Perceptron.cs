@@ -9,11 +9,12 @@ namespace NeuralNetwork
 {
     class Perceptron
     {
-        float[] weights = new float[2];
-        float learningRate = 0.1f;
+        float[] weights;
+        float learningRate = 0.005f;
 
-        public Perceptron()
+        public Perceptron(int count)
         {
+            weights = new float[count];
             for (int i = 0; i < weights.Length; i++)
             {
                 weights[i] = Random(-1f, 1f);
@@ -28,6 +29,14 @@ namespace NeuralNetwork
                 sum += inputs[i] * weights[i];
             }
             return Sign(sum);
+        }
+
+        public float GuessY(float x) {
+            float w0 = weights[0];
+            float w1 = weights[1];
+            float w2 = weights[2];
+            
+            return -(w2/w1) - (w0/w1) * x;
         }
 
         public void Train(float[] inputs, int target) {
