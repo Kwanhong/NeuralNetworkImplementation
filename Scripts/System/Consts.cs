@@ -2,7 +2,7 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
-namespace NeuralNetwork
+namespace NeuralNetworkSystem
 {
     static class Consts
     {

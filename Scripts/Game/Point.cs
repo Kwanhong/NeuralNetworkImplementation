@@ -2,11 +2,11 @@ using System;
 using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
-using static NeuralNetwork.Data;
-using static NeuralNetwork.Consts;
-using static NeuralNetwork.Utility;
+using static NeuralNetworkSystem.Data;
+using static NeuralNetworkSystem.Consts;
+using static NeuralNetworkSystem.Utility;
 
-namespace NeuralNetwork
+namespace NeuralNetworkSystem
 {
     class Point
     {
@@ -28,7 +28,7 @@ namespace NeuralNetwork
             X = Random(-1f, 1f);
             Y = Random(-1f, 1f);
 
-            float lineY = game.Function(X);
+            float lineY = Function(X);
             
             if (Y > lineY)
                 Label = 1;
@@ -41,7 +41,7 @@ namespace NeuralNetwork
             X = x;
             Y = y;
             
-            float lineY = game.Function(X);
+            float lineY = Function(X);
 
             if (Y > lineY)
                 Label = 1;

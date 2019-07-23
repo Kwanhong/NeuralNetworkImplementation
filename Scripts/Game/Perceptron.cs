@@ -2,15 +2,15 @@ using System;
 using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
-using static NeuralNetwork.Data;
-using static NeuralNetwork.Utility;
+using static NeuralNetworkSystem.Data;
+using static NeuralNetworkSystem.Utility;
 
-namespace NeuralNetwork
+namespace NeuralNetworkSystem
 {
     class Perceptron
     {
         float[] weights;
-        float learningRate = 0.005f;
+        float learningRate = 0.01f;
 
         public Perceptron(int count)
         {

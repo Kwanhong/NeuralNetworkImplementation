@@ -2,9 +2,9 @@ using System;
 using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
-using static NeuralNetwork.Data;
+using static NeuralNetworkSystem.Data;
 
-namespace NeuralNetwork
+namespace NeuralNetworkSystem
 {
     class Event
     {
@@ -12,7 +12,6 @@ namespace NeuralNetwork
         {
             window.Closed += OnClosed;
             window.KeyPressed += OnKeyPressed;
-            window.MouseButtonPressed += OnMouseButtonPressed;
         }
 
         public void HandleEvents()
@@ -35,11 +34,6 @@ namespace NeuralNetwork
             {
                 game.Initialize();
             }
-        }
-
-        public void OnMouseButtonPressed(object sender, MouseButtonEventArgs e)
-        {
-            game.TrainPerceptron();
         }
     }
 }

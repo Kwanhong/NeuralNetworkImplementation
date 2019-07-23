@@ -4,9 +4,9 @@ using SFML.System;
 using SFML.Window;
 using SFML.Audio;
 using System.Collections.Generic;
-using static NeuralNetwork.Consts;
+using static NeuralNetworkSystem.Consts;
 
-namespace NeuralNetwork
+namespace NeuralNetworkSystem
 {
     public class Utility
     {
@@ -381,6 +381,11 @@ namespace NeuralNetwork
             return Map((float)rnd.NextDouble(), 0, 1, 0, max);
         }
         #endregion
+
+        public static float Function(float x)
+        {
+            return 0.3f * x + 0.2f;
+        }
 
     }
 
