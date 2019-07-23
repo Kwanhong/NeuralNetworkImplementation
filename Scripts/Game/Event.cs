@@ -17,6 +17,7 @@ namespace NeuralNetwork
         {
             window.Closed += OnClosed;
             window.KeyPressed += OnKeyPressed;
+            window.MouseButtonPressed += OnMouseButtonPressed;
         }
 
         public void HandleEvents()
@@ -35,6 +36,15 @@ namespace NeuralNetwork
             {
                 window.Close();
             }
+            else if (e.Code == Keyboard.Key.F5)
+            {
+                game.Initialize();
+            }
+        }
+
+        public void OnMouseButtonPressed(object sender, MouseButtonEventArgs e)
+        {
+            game.TrainPerceptron();
         }
     }
 }

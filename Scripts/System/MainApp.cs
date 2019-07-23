@@ -1,4 +1,5 @@
 ﻿using System;
+using static NeuralNetwork.Data;
 
 namespace NeuralNetwork
 {
@@ -6,7 +7,7 @@ namespace NeuralNetwork
     {
         static void Main(string[] args)
         {
-            Game game = new Game();
+            game.Run();
         }
     }
 }

@@ -362,12 +362,12 @@ namespace NeuralNetwork
         #region RANDOM
         public static float Random(float min, float max)
         {
-            Random rnd = new Random(DateTime.Now.Millisecond);
+            Random rnd = new Random();
             return Map((float)rnd.NextDouble(), 0, 1, min, max);
         }
         public static float Random(float max)
         {
-            Random rnd = new Random(DateTime.Now.Millisecond);
+            Random rnd = new Random();
             return Map((float)rnd.NextDouble(), 0, 1, 0, max);
         }
         public static float Random(float min, float max, int seed)

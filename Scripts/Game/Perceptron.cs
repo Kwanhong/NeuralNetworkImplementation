@@ -10,6 +10,7 @@ namespace NeuralNetwork
     class Perceptron
     {
         float[] weights = new float[2];
+        float learningRate = 0.1f;
 
         public Perceptron()
         {
@@ -27,6 +28,15 @@ namespace NeuralNetwork
                 sum += inputs[i] * weights[i];
             }
             return Sign(sum);
+        }
+
+        public void Train(float[] inputs, int target) {
+            int guess = Guess(inputs);
+            int error = target - guess;
+
+            for (int i = 0; i  < weights.Length; i++) {
+                weights[i] += error * inputs[i] * learningRate; 
+            }
         }
 
         private int Sign(float value)

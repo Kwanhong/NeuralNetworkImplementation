@@ -15,6 +15,7 @@ namespace NeuralNetwork
             winSettings
         );
         public static Event events = new Event();
+        public static Game game = new Game();
 
     }
 }
