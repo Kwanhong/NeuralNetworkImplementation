@@ -27,11 +27,9 @@ namespace NeuralNetworkImplementation
         {
             window.SetFramerateLimit(winFrameLimit);
 
-            var a = new Matrix(2, 3);
-            var b = new Matrix(3, 2);
-            a.Add(2);
-            b.Add(3);
-            var c = a.Multiply(b);
+            var a = new Matrix(2, 2);
+            a.Randomize();
+            a.Map(d => d * 2);
 
             brain = new NeuralNetwork(3, 3, 1);
         }

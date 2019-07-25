@@ -7,15 +7,22 @@ using static NeuralNetworkImplementation.Data;
 
 namespace NeuralNetworkImplementation
 {
-    class NeuralNetwork{
+    class NeuralNetwork
+    {
         int InputNodes;
         int HiddenNodes;
         int OutputNodes;
-        
-        public NeuralNetwork(int inputCnt, int hidenCnt, int outputCnt) {
+
+        public NeuralNetwork(int inputCnt, int hidenCnt, int outputCnt)
+        {
             InputNodes = inputCnt;
             HiddenNodes = hidenCnt;
             OutputNodes = outputCnt;
+        }
+
+        public int FeedForward()
+        {
+            return guess;
         }
     }
 }
