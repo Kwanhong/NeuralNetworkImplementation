@@ -382,11 +382,23 @@ namespace NeuralNetworkImplementation
         }
         #endregion
 
-        public static float Function(float x)
+        #region DATA STRUCTURES 
+        public static float[][] ColVec(params float[] cols)
         {
+            var data = new float[1][];
+            data[0] = cols;
+            return data;
+        }
+        #endregion
+
+        #region MATH FUNCTIONS 
+        public static float Sigmoid(float x) {
+            return x;
+        }
+        public static float Function(float x) {
             return 0.3f * x + 0.2f;
         }
-
+        #endregion
     }
 
 }
