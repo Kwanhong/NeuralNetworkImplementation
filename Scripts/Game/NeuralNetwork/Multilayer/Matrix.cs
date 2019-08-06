@@ -35,6 +35,15 @@ namespace NeuralNetworkImplementation
             this.Data = data;
         }
 
+        public Matrix(float[] data)
+        {
+            this.Rows = data.Length;
+            this.Cols = data[0].Length;
+            
+            this.Data = new float[0][];
+            this.Data[0] = data;
+        }
+
         public void Randomize(float min = -1, float max = 1)
         {
             Random rnd = new Random();

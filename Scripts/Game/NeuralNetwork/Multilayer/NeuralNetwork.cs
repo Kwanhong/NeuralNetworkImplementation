@@ -50,5 +50,11 @@ namespace NeuralNetworkImplementation
 
             return output.ToArray();
         }
+
+        public float Train(Matrix inputs, Matrix[] targets)
+        {
+            var outputs = new Matrix(FeedForward(inputs));
+            var error = Matirx.Subtract(targets, outputs);
+        }
     }
 }
