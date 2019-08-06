@@ -392,10 +392,16 @@ namespace NeuralNetworkImplementation
         #endregion
 
         #region MATH FUNCTIONS 
-        public static float Sigmoid(float x) {
-            return x;
+        public static float Sigmoid(float x)
+        {
+            return 1 / (1 + MathF.Exp(-x));
         }
-        public static float Function(float x) {
+        public static float DeSigmoid(float x)
+        {
+            return x * (1 - x);
+        }
+        public static float Function(float x)
+        {
             return 0.3f * x + 0.2f;
         }
         #endregion

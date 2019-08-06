@@ -19,6 +19,8 @@ namespace NeuralNetworkImplementation
         Matrix biasH;
         Matrix biasO;
 
+        float learningRate;
+
         public NeuralNetwork(int inputNodes, int hidenNodes, int outpuNodes)
         {
             this.InputNodes = inputNodes;
@@ -34,27 +36,66 @@ namespace NeuralNetworkImplementation
             biasO = new Matrix(this.OutputNodes, 1);
             biasH.Add(1);
             biasO.Add(1);
+
+            learningRate = 0.1f;
         }
 
-        public float[] FeedForward(Matrix input)
+        public float[] FeedForward(float[] inputArr)
         {
-            Func<float, float> sigmoid = Sigmoid;
-
-            var hidden = Matrix.Multiply(weightsIH, input);
+            var inputs = new Matrix(inputArr);
+            var hidden = Matrix.Multiply(weightsIH, inputs);
             hidden.Add(biasH);
-            hidden.Map(sigmoid);
+            hidden.Map(Sigmoid);
 
             var output = Matrix.Multiply(weightsHO, hidden);
             output.Add(biasO);
-            hidden.Map(sigmoid);
+            output.Map(Sigmoid);
 
             return output.ToArray();
         }
 
-        public float Train(Matrix inputs, Matrix[] targets)
+        public void Train(float[] inputArr, float[] targetArr)
         {
-            var outputs = new Matrix(FeedForward(inputs));
-            var error = Matirx.Subtract(targets, outputs);
+            var inputs = new Matrix(inputArr);
+            var targets = new Matrix(targetArr);
+
+
+
+            var hiddens = Matrix.Multiply(weightsIH, inputs);
+            hiddens.Add(biasH);
+            hiddens.Map(Sigmoid);
+
+            var outputs = Matrix.Multiply(weightsHO, hiddens);
+            outputs.Add(biasO);
+            outputs.Map(Sigmoid);
+
+
+
+            var ouputErrors = Matrix.Subtract(targets, outputs);
+
+            var outputGradient = Matrix.Map(outputs, DeSigmoid);
+            outputGradient.Multiply(ouputErrors);
+            outputGradient.Multiply(learningRate);
+
+            var t_hiddens = Matrix.Transpose(hiddens);
+            var d_weightsHO = Matrix.Multiply(outputGradient, t_hiddens);
+            weightsHO.Add(d_weightsHO);
+            biasO.Add(outputGradient);
+
+
+
+            var t_weightsHO = Matrix.Transpose(weightsHO);
+            var hiddenErrors = Matrix.Multiply(t_weightsHO, ouputErrors);
+
+            var hiddenGradient = Matrix.Map(hiddens, DeSigmoid);
+            hiddenGradient.Multiply(hiddenErrors);
+            hiddenGradient.Multiply(learningRate);
+
+            var t_inputs = Matrix.Transpose(inputs);
+            var d_weightsIH = Matrix.Multiply(hiddenGradient, t_inputs);
+            weightsIH.Add(d_weightsIH);
+            biasH.Add(hiddenGradient);
+
         }
     }
 }

@@ -33,7 +33,7 @@ namespace NeuralNetworkImplementation
             Vector2f siz = new Vector2f(100, 50);
             button = new Button(pos, siz, "RUN");
 
-            button.ButtonReleasedEvents.Add(Think);
+            button.ButtonReleasedEvents.Add(Train);
         }
 
         private void Update()
@@ -54,13 +54,32 @@ namespace NeuralNetworkImplementation
             window.Clear(winBackColor);
         }
 
+        private void Train()
+        {
+            brain = new NeuralNetwork(2, 2, 1);
+
+            for (var i = 0; i < 10000; i++)
+            {
+                foreach (var data in trainingData)
+                    brain.Train(data.inputs, data.targets);
+            }
+
+            foreach (var data in trainingData)
+            {
+                foreach (var element in brain.FeedForward(data.inputs))
+                    Console.Write(element);
+                Console.WriteLine("");
+            }
+            Console.WriteLine("");
+        }
+
         private void Think()
         {
             brain = new NeuralNetwork(2, 2, 1);
-            var input = new Matrix(ColVec(1, 0));
-            var output = brain.FeedForward(Matrix.Transpose(input));
+            var inputs = new float[] { 1, 0 };
+            var outputs = brain.FeedForward(inputs);
 
-            foreach (var element in output)
+            foreach (var element in outputs)
                 Console.Write(element + " ");
             Console.WriteLine();
         }

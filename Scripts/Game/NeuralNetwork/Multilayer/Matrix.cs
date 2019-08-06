@@ -13,6 +13,14 @@ namespace NeuralNetworkImplementation
         public int Rows { get; set; }
         public int Cols { get; set; }
         public float[][] Data { get; set; }
+        public static Matrix Zero
+        {
+            get => new Matrix(
+            new float[][] {
+                new float[]{0},
+                new float[]{0}
+            });
+        }
 
         public Matrix(int rows, int cols)
         {
@@ -37,11 +45,23 @@ namespace NeuralNetworkImplementation
 
         public Matrix(float[] data)
         {
-            this.Rows = data.Length;
-            this.Cols = data[0].Length;
+            Rows = data.Length;
+            Cols = 1;
+
+            this.Data = new float[Rows][];
+            for (int x = 0; x < Rows; x++)
+                Data[x] = new float[1];
+
+            for (int x = 0; x < Rows; x++)
+                this.Data[x][0] = data[x];
             
-            this.Data = new float[0][];
-            this.Data[0] = data;
+        }
+
+        public Matrix(Matrix copy)
+        {
+            this.Rows = copy.Rows;
+            this.Cols = copy.Cols;
+            this.Data = copy.Data;
         }
 
         public void Randomize(float min = -1, float max = 1)
@@ -52,11 +72,21 @@ namespace NeuralNetworkImplementation
                     Data[x][y] = Utility.Map((float)rnd.NextDouble(), 0, 1, min, max);
         }
 
-        public void Multiply(int scalar)
+        public void Multiply(float scalar)
         {
             for (int x = 0; x < Rows; x++)
                 for (int y = 0; y < Cols; y++)
                     Data[x][y] *= scalar;
+        }
+
+        public void Multiply(Matrix other)
+        {
+            if (this.Cols != other.Cols || this.Rows != other.Rows)
+                return;
+
+            for (int x = 0; x < Rows; x++)
+                for (int y = 0; y < Cols; y++)
+                    Data[x][y] *= other.Data[x][y];
         }
 
         public void Add(int scalar)
@@ -94,9 +124,23 @@ namespace NeuralNetworkImplementation
             return list.ToArray();
         }
 
+        public static Matrix Map(Matrix one, Func<float, float> func)
+        {
+            var result = new Matrix(one);
+            for (int x = 0; x < result.Rows; x++)
+            {
+                for (int y = 0; y < result.Cols; y++)
+                {
+                    var val = result.Data[x][y];
+                    result.Data[x][y] = func(val);
+                }
+            }
+            return result;
+        }
+
         public static Matrix Multiply(Matrix one, Matrix other)
         {
-            if (one.Cols != other.Rows) return one;
+            if (one.Cols != other.Rows) return Zero;
 
             var a = one;
             var b = other;
@@ -122,6 +166,19 @@ namespace NeuralNetworkImplementation
             for (int x = 0; x < target.Rows; x++)
                 for (int y = 0; y < target.Cols; y++)
                     result.Data[y][x] = target.Data[x][y];
+
+            return result;
+        }
+
+        public static Matrix Subtract(Matrix one, Matrix other)
+        {
+            if (one.Cols != other.Cols || one.Rows != other.Rows)
+                return Zero;
+
+            var result = new Matrix(one.Rows, one.Cols);
+            for (int x = 0; x < result.Rows; x++)
+                for (int y = 0; y < result.Cols; y++)
+                    result.Data[x][y] = one.Data[x][y] - other.Data[x][y];
 
             return result;
         }
