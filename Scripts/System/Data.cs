@@ -17,16 +17,6 @@ namespace NeuralNetworkImplementation
         public static Event events;
         public static Game game;
 
-        public struct TrainingDatum
-        {
-            public TrainingDatum(float[] inputs, float[] targets)
-            {
-                this.inputs = inputs;
-                this.targets = targets;
-            }
-            public float[] inputs;
-            public float[] targets;
-        }
         public static TrainingDatum[] trainingData = new TrainingDatum[]
         {
             new TrainingDatum

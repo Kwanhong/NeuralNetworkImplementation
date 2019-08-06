@@ -11,7 +11,8 @@ namespace NeuralNetworkImplementation
     class Game
     {
         NeuralNetwork brain;
-        Button button;
+        Button think;
+        Button train;
 
         public void Run()
         {
@@ -29,11 +30,17 @@ namespace NeuralNetworkImplementation
         {
             window.SetFramerateLimit(winFrameLimit);
 
-            Vector2f pos = new Vector2f(winSizeX * 0.9f, winSizeY * 0.94f);
-            Vector2f siz = new Vector2f(100, 50);
-            button = new Button(pos, siz, "RUN");
+            Vector2f pos = new Vector2f(winSizeX * 0.65f, winSizeY * 0.94f);
+            Vector2f siz = new Vector2f(120, 50);
+            think = new Button(pos, siz, "THINK");
 
-            button.ButtonReleasedEvents.Add(Train);
+            think.ButtonReleasedEvents.Add(Think);
+            
+            pos = new Vector2f(winSizeX * 0.85f, winSizeY * 0.94f);
+            siz = new Vector2f(120, 50);
+            train = new Button(pos, siz, "TRAIN");
+
+            train.ButtonReleasedEvents.Add(Train);
         }
 
         private void Update()
@@ -48,7 +55,8 @@ namespace NeuralNetworkImplementation
 
         private void Display()
         {
-            button.Display();
+            think.Display();
+            train.Display();
 
             window.Display();
             window.Clear(winBackColor);

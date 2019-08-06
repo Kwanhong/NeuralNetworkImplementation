@@ -8,6 +8,17 @@ using static NeuralNetworkImplementation.Data;
 
 namespace NeuralNetworkImplementation
 {
+    public struct TrainingDatum
+    {
+        public TrainingDatum(float[] inputs, float[] targets)
+        {
+            this.inputs = inputs;
+            this.targets = targets;
+        }
+        public float[] inputs;
+        public float[] targets;
+    }
+    
     class NeuralNetwork
     {
         int InputNodes { get; set; }
