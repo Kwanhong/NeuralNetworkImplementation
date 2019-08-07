@@ -7,8 +7,8 @@ namespace NeuralNetworkImplementation
     static class Consts
     {
         public const int winFrameLimit = 60;
-        public const uint winSizeX = 600;
-        public const uint winSizeY = 600;
+        public const uint winSizeX = 500;
+        public const uint winSizeY = 250;
         public static Color winBackColor = new Color(32, 32, 32);
         public static VideoMode winMode = new VideoMode(winSizeX, winSizeY);
         public static string winTitle = "NEURAL NETWORK";
