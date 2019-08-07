@@ -8,11 +8,11 @@ namespace NeuralNetworkImplementation
     {
         public const int winFrameLimit = 60;
         public const uint winSizeX = 500;
-        public const uint winSizeY = 250;
+        public const uint winSizeY = 500;
         public static Color winBackColor = new Color(32, 32, 32);
         public static VideoMode winMode = new VideoMode(winSizeX, winSizeY);
         public static string winTitle = "NEURAL NETWORK";
-        public static Styles winStyle = Styles.Resize;
+        public static Styles winStyle = Styles.Titlebar;
         public static ContextSettings winSettings = new ContextSettings(1, 1, 8);
     }
 }

@@ -9,3 +9,14 @@ D:\Personals\NeuralNetworkImplementation\obj\Debug\netcoreapp2.2\neuralnetworkIm
 D:\Personals\NeuralNetworkImplementation\obj\Debug\netcoreapp2.2\neuralnetworkImplementation.AssemblyInfo.cs
 D:\Personals\NeuralNetworkImplementation\obj\Debug\netcoreapp2.2\neuralnetworkImplementation.dll
 D:\Personals\NeuralNetworkImplementation\obj\Debug\netcoreapp2.2\neuralnetworkImplementation.pdb
+c:\Works\Personal\NeuralNetworkImplementation\obj\Debug\netcoreapp2.2\neuralnetworkImplementation.csprojAssemblyReference.cache
+c:\Works\Personal\NeuralNetworkImplementation\obj\Debug\netcoreapp2.2\neuralnetworkImplementation.csproj.CoreCompileInputs.cache
+c:\Works\Personal\NeuralNetworkImplementation\obj\Debug\netcoreapp2.2\neuralnetworkImplementation.AssemblyInfoInputs.cache
+c:\Works\Personal\NeuralNetworkImplementation\obj\Debug\netcoreapp2.2\neuralnetworkImplementation.AssemblyInfo.cs
+c:\Works\Personal\NeuralNetworkImplementation\obj\Debug\netcoreapp2.2\neuralnetworkImplementation.dll
+c:\Works\Personal\NeuralNetworkImplementation\obj\Debug\netcoreapp2.2\neuralnetworkImplementation.pdb
+C:\Works\Personal\NeuralNetworkImplementation\bin\Debug\netcoreapp2.2\neuralnetworkImplementation.deps.json
+C:\Works\Personal\NeuralNetworkImplementation\bin\Debug\netcoreapp2.2\neuralnetworkImplementation.runtimeconfig.json
+C:\Works\Personal\NeuralNetworkImplementation\bin\Debug\netcoreapp2.2\neuralnetworkImplementation.runtimeconfig.dev.json
+c:\Works\Personal\NeuralNetworkImplementation\bin\Debug\netcoreapp2.2\neuralnetworkImplementation.dll
+c:\Works\Personal\NeuralNetworkImplementation\bin\Debug\netcoreapp2.2\neuralnetworkImplementation.pdb

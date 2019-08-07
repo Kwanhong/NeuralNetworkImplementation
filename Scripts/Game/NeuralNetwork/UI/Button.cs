@@ -4,6 +4,7 @@ using SFML.Window;
 using SFML.System;
 using System.Collections.Generic;
 using static NeuralNetworkImplementation.Consts;
+using static NeuralNetworkImplementation.Utility;
 using static NeuralNetworkImplementation.Data;
 
 namespace NeuralNetworkImplementation
@@ -43,7 +44,7 @@ namespace NeuralNetworkImplementation
         public List<Action> ButtonReleasedEvents { get; set; }
         public ButtonStyle Style { get; set; }
 
-        private byte alpha;
+        private int brightness;
 
         public Button(Vector2f position, Vector2f size, string caption)
         {
@@ -53,7 +54,7 @@ namespace NeuralNetworkImplementation
 
             Enabled = true;
             IsPressed = false;
-            alpha = 150;
+            brightness = 0;
 
             ButtonPressedEvents = new List<Action>();
             ButtonReleasedEvents = new List<Action>();
@@ -71,10 +72,17 @@ namespace NeuralNetworkImplementation
 
         public void Display()
         {
+            var rectColor = new Color
+            (
+                (byte)Limit(Style.fillColor.R + brightness, 0, 255),
+                (byte)Limit(Style.fillColor.G + brightness, 0, 255),
+                (byte)Limit(Style.fillColor.B + brightness, 0, 255)
+            );
+
             RectangleShape rect = new RectangleShape(Size);
             rect.Origin = this.Size / 2;
             rect.Position = this.Position;
-            rect.FillColor = Style.fillColor - new Color(0, 0, 0, (byte)(255 - alpha));
+            rect.FillColor = rectColor;
             window.Draw(rect);
 
             Text text = new Text(Caption, Style.font);
@@ -91,7 +99,7 @@ namespace NeuralNetworkImplementation
             if (OnTheButton(mousePos))
             {
                 IsPressed = true;
-                alpha = 100;
+                brightness = -10;
 
                 foreach (var evnt in ButtonPressedEvents)
                     evnt();
@@ -106,14 +114,14 @@ namespace NeuralNetworkImplementation
 
             if (OnTheButton(mousePos))
             {
-                alpha = 255;
+                brightness = 10;
 
                 foreach (var evnt in ButtonReleasedEvents)
                     evnt();
             }
             else
             {
-                alpha = 150;
+                brightness = 0;
             }
         }
 
@@ -123,11 +131,11 @@ namespace NeuralNetworkImplementation
 
             if (OnTheButton(mousePos))
             {
-                alpha = 255;
+                brightness = 20;
             }
             else
             {
-                alpha = 150;
+                brightness = 0;
             }
         }
 
