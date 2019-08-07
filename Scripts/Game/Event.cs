@@ -12,18 +12,25 @@ namespace NeuralNetworkImplementation
         public List<Action<Vector2f>> MousePressedEvents { get; set; }
         public List<Action<Vector2f>> MouseReleasedEvents { get; set; }
         public List<Action<Vector2f>> MouseMovedEvents { get; set; }
+        public List<Action<Vector2f, float>> MouseScrolledEvents { get; set; }
 
-        public void Initialize()
+        public void InitializeOnce()
         {
             window.Closed += OnClosed;
             window.KeyPressed += OnKeyPressed;
             window.MouseButtonPressed += OnMousePressed;
             window.MouseButtonReleased += OnMouseReleased;
             window.MouseMoved += OnMouseMoved;
+            window.MouseWheelScrolled += OnMouseScrolled;
+            Initialize();
+        }
 
+        public void Initialize()
+        {
             MousePressedEvents = new List<Action<Vector2f>>();
             MouseReleasedEvents = new List<Action<Vector2f>>();
             MouseMovedEvents = new List<Action<Vector2f>>();
+            MouseScrolledEvents = new List<Action<Vector2f, float>>();
         }
 
         public void HandleEvents()
@@ -44,6 +51,7 @@ namespace NeuralNetworkImplementation
             }
             else if (e.Code == Keyboard.Key.F5)
             {
+                events.Initialize();
                 game.Initialize();
             }
         }
@@ -68,6 +76,13 @@ namespace NeuralNetworkImplementation
 
             foreach (var evnt in MouseMovedEvents)
                 evnt(new Vector2f(e.X, e.Y));
+        }
+        public void OnMouseScrolled(object sender, MouseWheelScrollEventArgs e)
+        {
+            if (MouseScrolledEvents == null) return;
+
+            foreach (var evnt in MouseScrolledEvents)
+                evnt(new Vector2f(e.X, e.Y), e.Delta);
         }
     }
 }

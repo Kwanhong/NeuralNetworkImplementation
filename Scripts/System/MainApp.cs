@@ -9,8 +9,8 @@ namespace NeuralNetworkImplementation
         {
             events = new Event();
             game = new Game();
-            events.Initialize();
-            game.Initialize();
+            events.InitializeOnce();
+            game.InitializeOnce();
 
             game.Run();
         }

@@ -13,6 +13,8 @@ namespace NeuralNetworkImplementation
         NeuralNetwork brain;
         Button think;
         Button train;
+        Button clear;
+        ConsoleBox console;
 
         public void Run()
         {
@@ -26,26 +28,37 @@ namespace NeuralNetworkImplementation
             }
         }
 
+        public void InitializeOnce(){
+            window.SetFramerateLimit(winFrameLimit);
+            Initialize();
+        }
+
         public void Initialize()
         {
-            window.SetFramerateLimit(winFrameLimit);
+            Vector2f pos  = new Vector2f(winSizeX * 0.5f, winSizeY * 0.45f);
+            Vector2f siz  = new Vector2f(577, 512);
+            console = new ConsoleBox(pos, siz);
 
-            Vector2f pos = new Vector2f(winSizeX * 0.65f, winSizeY * 0.94f);
-            Vector2f siz = new Vector2f(120, 50);
+            pos = new Vector2f(winSizeX * 0.44f, winSizeY * 0.94f);
+            siz = new Vector2f(120, 50);
+            clear = new Button(pos, siz, "CLEAR");
+            clear.ButtonReleasedEvents.Add(console.Clear);
+
+            pos = new Vector2f(winSizeX * 0.66f, winSizeY * 0.94f);
+            siz = new Vector2f(120, 50);
             think = new Button(pos, siz, "THINK");
-
             think.ButtonReleasedEvents.Add(Think);
-            
-            pos = new Vector2f(winSizeX * 0.85f, winSizeY * 0.94f);
+
+            pos = new Vector2f(winSizeX * 0.88f, winSizeY * 0.94f);
             siz = new Vector2f(120, 50);
             train = new Button(pos, siz, "TRAIN");
-
             train.ButtonReleasedEvents.Add(Train);
+
         }
 
         private void Update()
         {
-
+            console.Update();
         }
 
         private void LateUpdate()
@@ -55,8 +68,10 @@ namespace NeuralNetworkImplementation
 
         private void Display()
         {
+            clear.Display();
             think.Display();
             train.Display();
+            console.Display();
 
             window.Display();
             window.Clear(winBackColor);
@@ -75,10 +90,11 @@ namespace NeuralNetworkImplementation
             foreach (var data in trainingData)
             {
                 foreach (var element in brain.FeedForward(data.inputs))
-                    Console.Write(element);
-                Console.WriteLine("");
+                    console.Write(element);
+                console.Endline();
             }
-            Console.WriteLine("");
+            console.Endline();
+            console.SetView(ConsoleBox.ViewMode.Bott);
         }
 
         private void Think()
@@ -88,8 +104,9 @@ namespace NeuralNetworkImplementation
             var outputs = brain.FeedForward(inputs);
 
             foreach (var element in outputs)
-                Console.Write(element + " ");
-            Console.WriteLine();
+                console.Write(element + " ");
+            console.Endline(2);
+            console.SetView(ConsoleBox.ViewMode.Bott);
         }
 
     }
