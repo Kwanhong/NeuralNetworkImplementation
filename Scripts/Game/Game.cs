@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
@@ -38,7 +39,7 @@ namespace NeuralNetworkImplementation
 
         public void Initialize()
         {
-            PickColor();
+            ChangeColor();
             brain = new NeuralNetwork(3, 3, 2);
 
             Vector2f pos = new Vector2f(125, 125);
@@ -59,14 +60,27 @@ namespace NeuralNetworkImplementation
             pass = new Button(pos, siz, "PASS");
             pass.Style.textColor = Color.White;
             pass.Style.FontName = "NANUMGOTHICEXTRABOLD";
-            pass.ButtonReleasedEvents.Add(PickColor);
+            pass.ButtonReleasedEvents.Add(ChangeColor);
             pass.Style.fillColor = winBackColor;
 
+            AutoTrainAsync(10000);
+        }
+
+        async static private void AutoTrainAsync(int loop)
+        {
+            await Task.Run(async () =>
+            {
+                for (int i = 0; i < loop / 100; i++)
+                {
+                    for (int j = 0; j < 100; j++)
+                        game.TrainColor();
+                    await Task.Delay(1);
+                }
+            });
         }
 
         private void Update()
         {
-            which = PredictColor(color);
         }
 
         private void Display()
@@ -79,16 +93,19 @@ namespace NeuralNetworkImplementation
 
             CircleShape circle = new CircleShape(20, 6);
             circle.Origin = new Vector2f(circle.Radius, circle.Radius);
+
+            float confidence;
+            which = PredictColor(color, out confidence);
             if (which == Which.Black)
             {
                 circle.Position = new Vector2f(125, 150);
-                circle.FillColor = Color.Black;
+                circle.FillColor = new Color(0, 0, 0, (byte)(confidence * 255));
                 window.Draw(circle);
             }
             else
             {
                 circle.Position = new Vector2f(375, 150);
-                circle.FillColor = Color.White;
+                circle.FillColor = new Color(255, 255, 255, (byte)(confidence * 255));
                 window.Draw(circle);
             }
 
@@ -100,10 +117,12 @@ namespace NeuralNetworkImplementation
         {
         }
 
-        private Which PredictColor(Color color)
+        private Which PredictColor(Color color, out float confidence)
         {
             var inputs = new float[] { color.R / 255f, color.G / 255f, color.B / 255f };
             var ouptuts = brain.Predict(inputs);
+
+            confidence = MathF.Abs(ouptuts[0] - ouptuts[1]);
 
             if (ouptuts[0] > ouptuts[1])
                 return Which.Black;
@@ -111,7 +130,7 @@ namespace NeuralNetworkImplementation
                 return Which.White;
         }
 
-        private void PickColor()
+        private void ChangeColor()
         {
             color = new Color
             (
@@ -126,7 +145,7 @@ namespace NeuralNetworkImplementation
             var inputs = new float[] { color.R / 255f, color.G / 255f, color.B / 255f };
             var targets = new float[] { 1, 0 };
             brain.Train(inputs, targets);
-            PickColor();
+            ChangeColor();
         }
 
         private void ChooseWhite()
@@ -134,7 +153,21 @@ namespace NeuralNetworkImplementation
             var inputs = new float[] { color.R / 255f, color.G / 255f, color.B / 255f };
             var targets = new float[] { 0, 1 };
             brain.Train(inputs, targets);
-            PickColor();
+            ChangeColor();
+        }
+
+        public void TrainColor()
+        {
+            var inputs = new float[] { color.R / 255f, color.G / 255f, color.B / 255f };
+
+            float[] targets;
+            if (color.R + color.G + color.B > (255 * 3 * 0.5f))
+                targets = new float[] { 1, 0 };
+            else
+                targets = new float[] { 0, 1 };
+
+            brain.Train(inputs, targets);
+            ChangeColor();
         }
     }
 }
