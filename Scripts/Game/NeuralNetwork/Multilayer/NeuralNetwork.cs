@@ -51,7 +51,7 @@ namespace NeuralNetworkImplementation
             learningRate = 0.1f;
         }
 
-        public float[] FeedForward(float[] inputArr)
+        public float[] Predict(float[] inputArr)
         {
             var inputs = new Matrix(inputArr);
             var hidden = Matrix.Multiply(weightsIH, inputs);

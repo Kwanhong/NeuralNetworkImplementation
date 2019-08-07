@@ -103,21 +103,31 @@ namespace NeuralNetworkImplementation
             view.Center = newView;
         }
 
+
         public void Display()
+        {
+            DisplayConsole();
+            DisplayToolbar();
+        }
+
+        #region  Display
+        private void DisplayConsole()
         {
             texture.SetView(view);
             texture.Clear(BackColor);
-
             text.Position = this.Position - this.Origin + new Vector2f(0, 30);
             text.FillColor = this.TextColor;
             texture.Draw(text);
-
             texture.Display();
 
             Sprite rect = new Sprite(texture.Texture);
             rect.Origin = this.Origin;
             rect.Position = this.Position;
             window.Draw(rect);
+        }
+
+        private void DisplayToolbar()
+        {
 
             Vector2f tbSize = new Vector2f(this.Size.X, 30);
             Vector2f tbOrigin = tbSize / 2;
@@ -136,6 +146,7 @@ namespace NeuralNetworkImplementation
             tbText.FillColor = new Color(125, 125, 125);
             window.Draw(tbText);
         }
+        #endregion
 
         public void Write(object str)
         {
@@ -162,27 +173,23 @@ namespace NeuralNetworkImplementation
 
         public void SetView(ViewMode viewMode)
         {
-            switch (viewMode)
+            if (textBox.X > this.Size.X)
             {
-                case ViewMode.Left:
-                    if (textBox.X > this.Size.X)
-                        view.Center = new Vector2f(Origin.X, view.Center.Y);
-                    break;
-                case ViewMode.Right:
-                    if (textBox.X > this.Size.X)
-                        view.Center = new Vector2f(textBox.X - Origin.X, view.Center.Y);
-                    break;
-                case ViewMode.Top:
-                    if (textBox.Y > this.Size.Y)
-                        view.Center = new Vector2f(view.Center.X, Origin.Y);
-                    break;
-                case ViewMode.Bott:
-                    if (textBox.Y > this.Size.Y)
-                        view.Center = new Vector2f(view.Center.X, textBox.Y - Origin.Y);
-                    break;
+                if (viewMode == ViewMode.Left)
+                    view.Center = new Vector2f(Origin.X, view.Center.Y);
+                if (viewMode == ViewMode.Right)
+                    view.Center = new Vector2f(textBox.X - Origin.X, view.Center.Y);
+            }
+            if (textBox.Y > this.Size.Y)
+            {
+                if (viewMode == ViewMode.Top)
+                    view.Center = new Vector2f(view.Center.X, Origin.Y);
+                if (viewMode == ViewMode.Bott)
+                    view.Center = new Vector2f(view.Center.X, textBox.Y - Origin.Y);
             }
         }
 
+        #region Events
         private void OnMousePressed(Vector2f mousePos, Mouse.Button button)
         {
             if (button != Mouse.Button.Left && button != Mouse.Button.Right) return;
@@ -205,17 +212,6 @@ namespace NeuralNetworkImplementation
             isDragging = false;
         }
 
-        private bool OnTheConsole(Vector2f mousePos)
-        {
-            if (mousePos.X > Position.X - Origin.X &&
-                mousePos.X < Position.X + Origin.X &&
-                mousePos.Y > Position.Y - Origin.Y &&
-                mousePos.Y < Position.Y + Origin.Y)
-                return true;
-            else
-                return false;
-        }
-
         private void OnMouseScrolled(Vector2f mousePos, float delta)
         {
             if (!OnTheConsole(mousePos)) return;
@@ -228,6 +224,18 @@ namespace NeuralNetworkImplementation
 
             OnMouseMoved(mousePos);
             ResetTextBox();
+        }
+        #endregion
+
+        private bool OnTheConsole(Vector2f mousePos)
+        {
+            if (mousePos.X > Position.X - Origin.X &&
+                mousePos.X < Position.X + Origin.X &&
+                mousePos.Y > Position.Y - Origin.Y &&
+                mousePos.Y < Position.Y + Origin.Y)
+                return true;
+            else
+                return false;
         }
 
         private void ResetTextBox()

@@ -383,6 +383,14 @@ namespace NeuralNetworkImplementation
         #endregion
 
         #region DATA STRUCTURES 
+        public static T Random<T>(List<T> list)
+        {
+            return list[(int)Random(list.Count - 0.01f)];
+        }
+        public static T Random<T>(T[] array)
+        {
+            return array[(int)Random(array.Length - 0.01f)];
+        }
         public static float[][] ColVec(params float[] cols)
         {
             var data = new float[1][];

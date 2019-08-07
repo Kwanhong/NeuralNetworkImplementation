@@ -11,10 +11,6 @@ namespace NeuralNetworkImplementation
     class Game
     {
         NeuralNetwork brain;
-        Button think;
-        Button train;
-        Button clear;
-        ConsoleBox console;
 
         public void Run()
         {
@@ -28,86 +24,55 @@ namespace NeuralNetworkImplementation
             }
         }
 
-        public void InitializeOnce(){
+        public void InitializeOnce()
+        {
             window.SetFramerateLimit(winFrameLimit);
             Initialize();
         }
 
         public void Initialize()
         {
-            Vector2f pos  = new Vector2f(winSizeX * 0.5f, winSizeY * 0.45f);
-            Vector2f siz  = new Vector2f(577, 512);
-            console = new ConsoleBox(pos, siz);
-
-            pos = new Vector2f(winSizeX * 0.44f, winSizeY * 0.94f);
-            siz = new Vector2f(120, 50);
-            clear = new Button(pos, siz, "CLEAR");
-            clear.ButtonReleasedEvents.Add(console.Clear);
-
-            pos = new Vector2f(winSizeX * 0.66f, winSizeY * 0.94f);
-            siz = new Vector2f(120, 50);
-            think = new Button(pos, siz, "THINK");
-            think.ButtonReleasedEvents.Add(Think);
-
-            pos = new Vector2f(winSizeX * 0.88f, winSizeY * 0.94f);
-            siz = new Vector2f(120, 50);
-            train = new Button(pos, siz, "TRAIN");
-            train.ButtonReleasedEvents.Add(Train);
-
+            brain = new NeuralNetwork(2, 4, 1);
         }
 
         private void Update()
         {
-            console.Update();
-        }
-
-        private void LateUpdate()
-        {
-
+            for (int i = 0; i < 1000; i++)
+            {
+                var data = Random(trainingData);
+                brain.Train(data.inputs, data.targets);
+            }
         }
 
         private void Display()
         {
-            console.Display();
-            clear.Display();
-            think.Display();
-            train.Display();
+            var res = 10;
+            var cols = winSizeX / res;
+            var rows = winSizeY / res;
+            for (var i = 0; i < cols; i++)
+            {
+                for (var j = 0; j < cols; j++)
+                {
+                    var x1 = (float)i / cols;
+                    var x2 = (float)j / rows;
+                    var inputs = new float[] { x1, x2 };
+                    var y = brain.Predict(inputs)[0];
+
+                    var brightness = (byte)(y * 255f);
+                    RectangleShape rect = new RectangleShape(new Vector2f(res, res));
+                    rect.Position = new Vector2f(res * i, res * j);
+                    rect.FillColor = new Color(brightness, brightness, brightness);
+                    window.Draw(rect);
+                }
+            }
+
 
             window.Display();
             window.Clear(winBackColor);
         }
 
-        private void Train()
+        private void LateUpdate()
         {
-            brain = new NeuralNetwork(2, 2, 1);
-
-            for (var i = 0; i < 10000; i++)
-            {
-                foreach (var data in trainingData)
-                    brain.Train(data.inputs, data.targets);
-            }
-
-            foreach (var data in trainingData)
-            {
-                foreach (var element in brain.FeedForward(data.inputs))
-                    console.Write(element);
-                console.Endline();
-            }
-            console.Endline();
-            console.SetView(ConsoleBox.ViewMode.Bott);
         }
-
-        private void Think()
-        {
-            brain = new NeuralNetwork(2, 2, 1);
-            var inputs = new float[] { 1, 0 };
-            var outputs = brain.FeedForward(inputs);
-
-            foreach (var element in outputs)
-                console.Write(element + " ");
-            console.Endline(2);
-            console.SetView(ConsoleBox.ViewMode.Bott);
-        }
-
     }
 }
