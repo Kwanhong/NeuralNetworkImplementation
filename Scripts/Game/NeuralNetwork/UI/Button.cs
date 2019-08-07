@@ -61,8 +61,10 @@ namespace NeuralNetworkImplementation
             window.Draw(text);
         }
 
-        private void OnMousePressed(Vector2f mousePos)
+        private void OnMousePressed(Vector2f mousePos, Mouse.Button button)
         {
+            if (button != Mouse.Button.Left) return;
+            
             if (OnTheButton(mousePos))
             {
                 IsPressed = true;
@@ -74,7 +76,7 @@ namespace NeuralNetworkImplementation
             }
         }
 
-        private void OnMouseReleased(Vector2f mousePos)
+        private void OnMouseReleased(Vector2f mousePos, Mouse.Button button)
         {
             if (!IsPressed) return;
             IsPressed = false;

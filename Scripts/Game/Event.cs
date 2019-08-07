@@ -9,8 +9,8 @@ namespace NeuralNetworkImplementation
 {
     class Event
     {
-        public List<Action<Vector2f>> MousePressedEvents { get; set; }
-        public List<Action<Vector2f>> MouseReleasedEvents { get; set; }
+        public List<Action<Vector2f, Mouse.Button>> MousePressedEvents { get; set; }
+        public List<Action<Vector2f, Mouse.Button>> MouseReleasedEvents { get; set; }
         public List<Action<Vector2f>> MouseMovedEvents { get; set; }
         public List<Action<Vector2f, float>> MouseScrolledEvents { get; set; }
 
@@ -27,8 +27,8 @@ namespace NeuralNetworkImplementation
 
         public void Initialize()
         {
-            MousePressedEvents = new List<Action<Vector2f>>();
-            MouseReleasedEvents = new List<Action<Vector2f>>();
+            MousePressedEvents = new List<Action<Vector2f, Mouse.Button>>();
+            MouseReleasedEvents = new List<Action<Vector2f, Mouse.Button>>();
             MouseMovedEvents = new List<Action<Vector2f>>();
             MouseScrolledEvents = new List<Action<Vector2f, float>>();
         }
@@ -61,14 +61,14 @@ namespace NeuralNetworkImplementation
             if (MousePressedEvents == null) return;
 
             foreach (var evnt in MousePressedEvents)
-                evnt(new Vector2f(e.X, e.Y));
+                evnt(new Vector2f(e.X, e.Y), e.Button);
         }
         public void OnMouseReleased(object sender, MouseButtonEventArgs e)
         {
             if (MouseReleasedEvents == null) return;
 
             foreach (var evnt in MouseReleasedEvents)
-                evnt(new Vector2f(e.X, e.Y));
+                evnt(new Vector2f(e.X, e.Y), e.Button);
         }
         public void OnMouseMoved(object sender, MouseMoveEventArgs e)
         {

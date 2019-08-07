@@ -183,8 +183,9 @@ namespace NeuralNetworkImplementation
             }
         }
 
-        private void OnMousePressed(Vector2f mousePos)
+        private void OnMousePressed(Vector2f mousePos, Mouse.Button button)
         {
+            if (button != Mouse.Button.Left && button != Mouse.Button.Right) return;
             if (!OnTheConsole(mousePos)) return;
 
             isDragging = true;
@@ -198,7 +199,7 @@ namespace NeuralNetworkImplementation
             view.Center = newView;
         }
 
-        private void OnMouseReleased(Vector2f mousePos)
+        private void OnMouseReleased(Vector2f mousePos, Mouse.Button button)
         {
             if (!isDragging) return;
             isDragging = false;
@@ -218,7 +219,7 @@ namespace NeuralNetworkImplementation
         private void OnMouseScrolled(Vector2f mousePos, float delta)
         {
             if (!OnTheConsole(mousePos)) return;
-            
+
             text.CharacterSize += (uint)(delta);
             if (delta > 0 && text.CharacterSize > MaxCharSize)
                 text.CharacterSize = MaxCharSize;
