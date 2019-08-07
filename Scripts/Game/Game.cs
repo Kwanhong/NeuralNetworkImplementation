@@ -68,10 +68,10 @@ namespace NeuralNetworkImplementation
 
         private void Display()
         {
+            console.Display();
             clear.Display();
             think.Display();
             train.Display();
-            console.Display();
 
             window.Display();
             window.Clear(winBackColor);

@@ -226,6 +226,7 @@ namespace NeuralNetworkImplementation
             if (delta < 0 && text.CharacterSize < MinCharSize)
                 text.CharacterSize = MinCharSize;
 
+            OnMouseMoved(mousePos);
             ResetTextBox();
         }
 
